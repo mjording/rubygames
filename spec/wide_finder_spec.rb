@@ -25,7 +25,7 @@ describe WideFinder do
   it "should compute simple arithmatic" do
 
     @reports << Benchmark.measure do
-      sample = WideFinder.new( '003/raw_data.log' )
+      sample = WideFinder.new( 'raw_data.log' )
       sample.results.should eql( ["11101: /search/image_set/20", "8505: /search/image_set/40", "5263: /javascripts/jquery.js", "5257: /javascripts/jquery-ui.js" ] )
     end
 
