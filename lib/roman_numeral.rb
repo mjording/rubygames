@@ -33,7 +33,16 @@ class RomanNumeral
 
   def self.romanize(decimal)
     reverse_hashroman = HASHROMAN.invert
-
+    reverse_hashroman_keys = reverse_hashroman.keys.sort.reverse
+    working_decimal = decimal
+    working_roman = ''
+    reverse_hashroman_keys.each{|key|
+      (working_decimal / key).times {
+        working_roman << "#{reverse_hashroman[key]}"
+        working_decimal -= key
+      }
+    }
+    working_roman
   end
 
   def self.decimal_value(numerical_string)
@@ -52,8 +61,9 @@ class RomanNumeral
     RomanNumeral.romanize(dec_num)
   end
 
-  def -( numeral_string )
-    "MCMXCVI"
+  def -( other_roman )
+    dec_num = decimal_val - other_roman.decimal_val
+    RomanNumeral.romanize(dec_num)
   end
 end
 
