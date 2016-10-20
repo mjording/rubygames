@@ -4,10 +4,11 @@ require 'roman_numeral'
 
 describe RomanNumeral do
 
-  it 'should compute simple arithmatic' do
+  it 'should compute simple arithmetic' do
+    @reports = []
     @reports << Benchmark.measure do
       expect( RomanNumeral.new( 'MCMXCVI' ) + RomanNumeral.new( 'XIV' ) ).to eq('MMX')
-      expect( RomanNumeral.new( 'MMX' ) + RomanNumeral.new( 'XIV' ) ).to eq('MCMXCVI')
+      expect( RomanNumeral.new( 'MMX' ) - RomanNumeral.new( 'XIV' ) ).to eq('MCMXCVI')
     end
   end
 
