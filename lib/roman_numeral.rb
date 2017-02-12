@@ -32,8 +32,12 @@ class RomanNumeral
   end
 
   def self.romanize(decimal)
-    reverse_hashroman = HASHROMAN.invert
-
+    roman=""
+    HASHROMAN.sort_by {|num, val| val }.reverse.each{|num, val|
+      roman+=num.to_s*(decimal/val).floor # It's a symbol at this point,
+      decimal-=(decimal/val).floor*val
+    }
+    roman
   end
 
   def self.decimal_value(numerical_string)
@@ -53,7 +57,17 @@ class RomanNumeral
   end
 
   def -( numeral_string )
-    "MCMXCVI"
+    dec_num = decimal_val - numeral_string.decimal_val
+    dec_num >0 ? RomanNumeral.romanize(dec_num) : "-" + RomanNumeral.romanize(dec_num.abs)
+  end
+
+  def *( other_roman )
+    dec_num = other_roman.decimal_val * decimal_val
+    RomanNumeral.romanize(dec_num)
+  end
+
+  def /( numeral_string )
+    dec_num = (decimal_val / numeral_string.decimal_val).floor
+    dec_num >0 ? RomanNumeral.romanize(dec_num) : "-" + RomanNumeral.romanize(dec_num.abs)
   end
 end
-
